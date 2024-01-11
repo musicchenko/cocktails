@@ -1,10 +1,10 @@
 <template>
     <nav class="navigation">
         <RouterLink
-            v-for="(point) in Object.keys(cocktailsEnum.enum)"
+            v-for="point in Object.keys(cocktailsEnum.enum)"
             :key="point"
             :to="`/${point}`"
-            :class="{ 'navigation__point_current': route.params.cocktail === point }"
+            :class="{ navigation__point_current: route.params.cocktail === point }"
             class="navigation__point"
         >
             {{ point }}

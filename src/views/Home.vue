@@ -31,15 +31,24 @@ const { cocktails } = storeToRefs(useCocktailsStore())
 
 const isLoading = ref(!cocktails.value[route.params.cocktail as keyof typeof cocktails.value])
 
-const isNotFound = computed(() => !Object.keys(cocktailsEnum.enum).includes(route.params.cocktail as string))
+const isNotFound = computed(
+    () => !Object.keys(cocktailsEnum.enum).includes(route.params.cocktail as string)
+)
 
-watch(() => route.params.cocktail, async () => {
-    if (!isNotFound.value && !cocktails.value[route.params.cocktail as keyof typeof cocktails.value]) {
-        isLoading.value = true
-        await cocktailsAPI.get(route.params.cocktail as Cocktails)
-        isLoading.value = false
-    }
-}, { immediate: true })
+watch(
+    () => route.params.cocktail,
+    async () => {
+        if (
+            !isNotFound.value &&
+            !cocktails.value[route.params.cocktail as keyof typeof cocktails.value]
+        ) {
+            isLoading.value = true
+            await cocktailsAPI.get(route.params.cocktail as Cocktails)
+            isLoading.value = false
+        }
+    },
+    { immediate: true }
+)
 </script>
 
 <style scoped lang="scss">

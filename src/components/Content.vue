@@ -40,9 +40,27 @@
                             v-for="index in MEASURE_COUNT"
                             :key="'measure-' + index"
                         >
-                            <tr v-if="selectedCocktail[`strMeasure${index}` as keyof typeof selectedCocktail]">
-                                <td>{{ selectedCocktail[`strMeasure${index}` as keyof typeof selectedCocktail] }}</td>
-                                <td>{{ selectedCocktail[`strIngredient${index}` as keyof typeof selectedCocktail] }}</td>
+                            <tr
+                                v-if="
+                                    selectedCocktail[
+                                        `strMeasure${index}` as keyof typeof selectedCocktail
+                                    ]
+                                "
+                            >
+                                <td>
+                                    {{
+                                        selectedCocktail[
+                                            `strMeasure${index}` as keyof typeof selectedCocktail
+                                        ]
+                                    }}
+                                </td>
+                                <td>
+                                    {{
+                                        selectedCocktail[
+                                            `strIngredient${index}` as keyof typeof selectedCocktail
+                                        ]
+                                    }}
+                                </td>
                             </tr>
                         </template>
                     </table>
@@ -56,7 +74,7 @@
                 v-else
                 :src="thumb?.src"
                 class="content__thumb"
-            >
+            />
         </template>
     </div>
 </template>
@@ -93,22 +111,24 @@ const infos = computed(() => {
         },
         {
             title: 'Instructions:',
-            rows: [
-                selectedCocktail.value?.strInstructions
-            ]
+            rows: [selectedCocktail.value?.strInstructions]
         }
     ]
 })
 
-watch(() => selectedCocktail.value, () => {
-    if (selectedCocktail.value) {
-        thumb.value = new Image()
-        thumb.value.onload = () => {
-            isImageLoaded.value = true
+watch(
+    () => selectedCocktail.value,
+    () => {
+        if (selectedCocktail.value) {
+            thumb.value = new Image()
+            thumb.value.onload = () => {
+                isImageLoaded.value = true
+            }
+            thumb.value.src = selectedCocktail.value.strDrinkThumb
         }
-        thumb.value.src = selectedCocktail.value.strDrinkThumb
-    }
-}, { immediate: true })
+    },
+    { immediate: true }
+)
 </script>
 
 <style scoped lang="scss">

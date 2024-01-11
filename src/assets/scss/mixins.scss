@@ -1,0 +1,11 @@
+@mixin desktop {
+    @media (min-width: #{$max-interface-width}) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media (max-width: #{$max-interface-width - 1px}) {
+        @content;
+    }
+}
